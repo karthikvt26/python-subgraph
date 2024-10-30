@@ -1,0 +1,246 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: mypython
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: APP_MYPYTHON_READ_URL
+      write:
+        valueFromEnv: APP_MYPYTHON_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: APP_MYPYTHON_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        Boolean:
+          representation:
+            type: boolean
+          aggregate_functions: {}
+          comparison_operators: {}
+        Float:
+          representation:
+            type: float64
+          aggregate_functions: {}
+          comparison_operators: {}
+        HeaderMap:
+          representation:
+            type: json
+          aggregate_functions: {}
+          comparison_operators: {}
+        Int:
+          representation:
+            type: integer
+          aggregate_functions: {}
+          comparison_operators: {}
+        Json:
+          representation:
+            type: json
+          aggregate_functions: {}
+          comparison_operators: {}
+        String:
+          representation:
+            type: string
+          aggregate_functions: {}
+          comparison_operators: {}
+      object_types:
+        complex_function_input:
+          fields:
+            lists:
+              type:
+                type: array
+                element_type:
+                  type: array
+                  element_type:
+                    type: named
+                    name: Json
+            person:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: complex_function_input_person_nullable
+            x:
+              type:
+                type: named
+                name: Int
+            "y":
+              type:
+                type: named
+                name: Float
+            z:
+              type:
+                type: named
+                name: Boolean
+        complex_function_input_person_nullable:
+          fields:
+            name:
+              type:
+                type: named
+                name: String
+            pets:
+              type:
+                type: nullable
+                underlying_type:
+                  type: array
+                  element_type:
+                    type: named
+                    name: complex_function_input_person_nullable_pets_nullable_array
+        complex_function_input_person_nullable_pets_nullable_array:
+          fields:
+            name:
+              type:
+                type: named
+                name: String
+        complex_function_result:
+          fields:
+            lists:
+              type:
+                type: array
+                element_type:
+                  type: array
+                  element_type:
+                    type: named
+                    name: Json
+            person:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: complex_function_result_person_nullable
+            x:
+              type:
+                type: named
+                name: Int
+            "y":
+              type:
+                type: named
+                name: Float
+            z:
+              type:
+                type: named
+                name: Boolean
+        complex_function_result_person_nullable:
+          fields:
+            name:
+              type:
+                type: named
+                name: String
+            pets:
+              type:
+                type: nullable
+                underlying_type:
+                  type: array
+                  element_type:
+                    type: named
+                    name: complex_function_result_person_nullable_pets_nullable_array
+        complex_function_result_person_nullable_pets_nullable_array:
+          fields:
+            name:
+              type:
+                type: named
+                name: String
+        greet_person_person:
+          fields:
+            name:
+              type:
+                type: named
+                name: String
+            pets:
+              type:
+                type: nullable
+                underlying_type:
+                  type: array
+                  element_type:
+                    type: named
+                    name: greet_person_person_pets_nullable_array
+        greet_person_person_pets_nullable_array:
+          fields:
+            name:
+              type:
+                type: named
+                name: String
+      collections: []
+      functions:
+        - name: hello
+          arguments:
+            name:
+              type:
+                type: named
+                name: String
+          result_type:
+            type: named
+            name: String
+        - name: nullable_hello
+          arguments:
+            name:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: String
+          result_type:
+            type: named
+            name: String
+        - name: greet_person
+          arguments:
+            person:
+              type:
+                type: named
+                name: greet_person_person
+          result_type:
+            type: named
+            name: String
+        - name: complex_function
+          arguments:
+            input:
+              type:
+                type: named
+                name: complex_function_input
+          result_type:
+            type: named
+            name: complex_function_result
+        - name: with_tracing
+          arguments:
+            name:
+              type:
+                type: named
+                name: String
+          result_type:
+            type: named
+            name: String
+        - name: parallel_query
+          arguments:
+            name:
+              type:
+                type: named
+                name: String
+          result_type:
+            type: named
+            name: String
+        - name: error
+          arguments: {}
+          result_type:
+            type: named
+            name: Json
+      procedures:
+        - name: some_mutation_function
+          arguments:
+            any_type_param:
+              type:
+                type: named
+                name: Json
+          result_type:
+            type: named
+            name: Json
+    capabilities:
+      version: 0.1.5
+      capabilities:
+        query:
+          aggregates: {}
+          variables: {}
+          explain: {}
+        mutation:
+          transactional: {}

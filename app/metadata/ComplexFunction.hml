@@ -1,0 +1,212 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ComplexFunctionInputPersonNullablePetsNullableArray
+  fields:
+    - name: name
+      type: String!
+  graphql:
+    typeName: ComplexFunctionInputPersonNullablePetsNullableArray
+    inputTypeName: ComplexFunctionInputPersonNullablePetsNullableArrayInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypython
+      dataConnectorObjectType: complex_function_input_person_nullable_pets_nullable_array
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ComplexFunctionInputPersonNullablePetsNullableArray
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ComplexFunctionInputPersonNullable
+  fields:
+    - name: name
+      type: String!
+    - name: pets
+      type: "[ComplexFunctionInputPersonNullablePetsNullableArray!]"
+  graphql:
+    typeName: ComplexFunctionInputPersonNullable
+    inputTypeName: ComplexFunctionInputPersonNullableInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypython
+      dataConnectorObjectType: complex_function_input_person_nullable
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ComplexFunctionInputPersonNullable
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - name
+          - pets
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ComplexFunctionInput
+  fields:
+    - name: lists
+      type: "[[Json!]!]!"
+    - name: person
+      type: ComplexFunctionInputPersonNullable
+    - name: x
+      type: Int!
+    - name: y
+      type: Float!
+    - name: z
+      type: Boolean!
+  graphql:
+    typeName: ComplexFunctionInput
+    inputTypeName: ComplexFunctionInputInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypython
+      dataConnectorObjectType: complex_function_input
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ComplexFunctionInput
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - lists
+          - person
+          - x
+          - y
+          - z
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ComplexFunctionResultPersonNullablePetsNullableArray
+  fields:
+    - name: name
+      type: String!
+  graphql:
+    typeName: ComplexFunctionResultPersonNullablePetsNullableArray
+    inputTypeName: ComplexFunctionResultPersonNullablePetsNullableArrayInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypython
+      dataConnectorObjectType: complex_function_result_person_nullable_pets_nullable_array
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ComplexFunctionResultPersonNullablePetsNullableArray
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ComplexFunctionResultPersonNullable
+  fields:
+    - name: name
+      type: String!
+    - name: pets
+      type: "[ComplexFunctionResultPersonNullablePetsNullableArray!]"
+  graphql:
+    typeName: ComplexFunctionResultPersonNullable
+    inputTypeName: ComplexFunctionResultPersonNullableInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypython
+      dataConnectorObjectType: complex_function_result_person_nullable
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ComplexFunctionResultPersonNullable
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - name
+          - pets
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ComplexFunctionResult
+  fields:
+    - name: lists
+      type: "[[Json!]!]!"
+    - name: person
+      type: ComplexFunctionResultPersonNullable
+    - name: x
+      type: Int!
+    - name: y
+      type: Float!
+    - name: z
+      type: Boolean!
+  graphql:
+    typeName: ComplexFunctionResult
+    inputTypeName: ComplexFunctionResultInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypython
+      dataConnectorObjectType: complex_function_result
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ComplexFunctionResult
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - lists
+          - person
+          - x
+          - y
+          - z
+
+---
+kind: Command
+version: v1
+definition:
+  name: ComplexFunction
+  outputType: ComplexFunctionResult!
+  arguments:
+    - name: input
+      type: ComplexFunctionInput!
+  source:
+    dataConnectorName: mypython
+    dataConnectorCommand:
+      function: complex_function
+  graphql:
+    rootFieldName: complexFunction
+    rootFieldKind: Query
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: ComplexFunction
+  permissions:
+    - role: admin
+      allowExecution: true
+
